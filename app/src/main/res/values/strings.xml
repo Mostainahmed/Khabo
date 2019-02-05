@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Khabo</string>
+    <string name="user_name">Name</string>
+    <string name="password">Password</string>
+    <string name="sign_up">Register</string>
+    <string name="user_email">Email</string>
+    <string name="user_phone">Phone Number</string>
+
+    <array name="location">
+        <item>KUET</item>
+        <item>Others</item>
+    </array>
+
 </resources>
