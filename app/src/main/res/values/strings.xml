@@ -4,9 +4,12 @@
     <string name="password">Password</string>
     <string name="sign_up">Register</string>
     <string name="user_email">Email</string>
-    <string name="user_phone">Phone Number</string>
+    <string name="user_phone">01711123456</string>
+    <string name="sign_in">LogIn</string>
+    <string name="already_signed_up">Already Signed up? <b>Login</b> here</string>
 
     <array name="location">
+        <item>Select Location</item>
         <item>KUET</item>
         <item>Others</item>
     </array>
