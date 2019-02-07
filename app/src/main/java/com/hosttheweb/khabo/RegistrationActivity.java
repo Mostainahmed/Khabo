@@ -1,6 +1,7 @@
 package com.hosttheweb.khabo;
 
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,10 +9,19 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class RegistrationActivity extends AppCompatActivity {
+    private LinearLayout linearLayout;
+    private AlertDialog alertDialog;
+    private ProgressBar progressBar;
     private EditText userName, userPhone, userPassword, othersLocation;
     private TextView loginText;
     private Spinner userLocation;
@@ -33,6 +43,8 @@ public class RegistrationActivity extends AppCompatActivity {
         othersLocation = findViewById(R.id.otherslocation);
         userLocation = findViewById(R.id.user_location);
         loginText = findViewById(R.id.logintext);
+        progressBar = findViewById(R.id.progressbar);
+        linearLayout = findViewById(R.id.registration_activity_layout);
 
         //Initializing ApiInterface
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
@@ -57,28 +69,27 @@ public class RegistrationActivity extends AppCompatActivity {
                 myAnim.setInterpolator(interpolator);
                 v.startAnimation(myAnim);
 
+                //AlertDialouge to show
+                alertDialog = new AlertDialog.Builder(RegistrationActivity.this).create();
+
                 //Getting all the user data to variables
                 String username = userName.getText().toString();
                 String password = userPassword.getText().toString();
                 String usernumber = userPhone.getText().toString();
                 String userlocation = userLocation.getSelectedItem().toString();
-
-                //Checking if the user selects others for their location. If so "Otherlocation" EditText will be visible to them
-                if(userlocation.equals("Others")){
-                    othersLocation.setVisibility(View.VISIBLE);
-                    otherslocation = othersLocation.getText().toString();
-                }else{
-                    othersLocation.setVisibility(View.GONE);
-                }
+                otherslocation = othersLocation.getText().toString();
 
                 //Sending all the user values to servers, Starting from here(Sending point).
                 if(inputsAreCorrect(username, password, usernumber, userlocation, otherslocation)){
-                    if(userlocation.equals("Others") && !otherslocation.equals("")){
-                        finallocation = otherslocation;
-                    }else{
-                        finallocation = userlocation;
-                    }
-                    startActivity(new Intent(RegistrationActivity.this, OrderActivity.class));
+//                    if(userlocation.equals("Others") && !otherslocation.equals("")){
+//                        finallocation = otherslocation;
+//                    }else{
+//                        finallocation = userlocation;
+//                    }
+                    linearLayout.setAlpha(0.5f);
+                    progressBar.setVisibility(View.VISIBLE);
+                    performRegistration(username,usernumber,userlocation,otherslocation,password);
+                    //startActivity(new Intent(RegistrationActivity.this, OrderActivity.class));
                 }
             }
         });
@@ -108,18 +119,55 @@ public class RegistrationActivity extends AppCompatActivity {
             userLocation.requestFocus();
             return false;
         }
-        if (location.equals("Others")) {
 
-            if (otherslocation.isEmpty()) {
-                othersLocation.requestFocus();
-                return false;
-            }
+        if (otherslocation.isEmpty()) {
+            othersLocation.requestFocus();
+            return false;
         }
-
 
         return true;
     }
-    public void performRegistration(){
-        
+    public void performRegistration(String name, String number, String location, String otherslocation, String password){
+        Call<User> call = apiInterface.performRegistration(name,password,location,otherslocation,number);
+
+        //Toast.makeText(RegistrationActivity.this, name + number + location+ otherslocation + password, Toast.LENGTH_LONG).show();
+
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if(response.body().getResponse().equals("ok")){
+                    //Toast.makeText(RegistrationActivity.this, "Successfull",Toast.LENGTH_LONG).show();
+                    linearLayout.setAlpha(1f);
+                    progressBar.setVisibility(View.GONE);
+                    alertDialog.setMessage("Congrats. Registration Successful");
+                    alertDialog.show();
+//                    alertDialog.dismiss();
+                }
+                else if(response.body().getResponse().equals("exist")){
+                    //Toast.makeText(RegistrationActivity.this, "User already exists",Toast.LENGTH_LONG).show();
+                    linearLayout.setAlpha(1f);
+                    progressBar.setVisibility(View.GONE);
+                    alertDialog.setMessage("User already exists... ");
+                    alertDialog.show();
+//                    alertDialog.dismiss();
+                }
+                else if(response.body().getResponse().equals("error")){
+                    //Toast.makeText(RegistrationActivity.this, "Big Problem",Toast.LENGTH_LONG).show();
+                    linearLayout.setAlpha(1f);
+                    progressBar.setVisibility(View.GONE);
+                    alertDialog.setMessage("Something went wrong... Please try again later");
+                    alertDialog.show();
+//                    alertDialog.dismiss();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                //Toast.makeText(RegistrationActivity.this,t.toString(),Toast.LENGTH_LONG).show();
+                linearLayout.setAlpha(1f);
+                alertDialog.setMessage(t.toString());
+                alertDialog.dismiss();
+            }
+        });
     }
 }
