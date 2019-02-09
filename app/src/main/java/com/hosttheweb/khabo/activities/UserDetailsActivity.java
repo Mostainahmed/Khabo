@@ -1,8 +1,10 @@
-package com.hosttheweb.khabo;
+package com.hosttheweb.khabo.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.hosttheweb.khabo.R;
 
 public class UserDetailsActivity extends AppCompatActivity {
 

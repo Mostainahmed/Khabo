@@ -1,4 +1,4 @@
-package com.hosttheweb.khabo;
+package com.hosttheweb.khabo.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -13,6 +13,12 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.hosttheweb.khabo.api.ApiClient;
+import com.hosttheweb.khabo.api.ApiInterface;
+import com.hosttheweb.khabo.R;
+import com.hosttheweb.khabo.model.User;
+import com.hosttheweb.khabo.others.MyBounceInterPolator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -82,11 +88,15 @@ public class LoginActivity extends AppCompatActivity {
                     String name = response.body().getName();
                     String number = response.body().getNumber();
                     String location = response.body().getLocation();
-                    Intent userIntent = new Intent(LoginActivity.this, UserDetailsActivity.class);
+
+                    Intent userIntent = new Intent(LoginActivity.this, OrderActivity.class);
+//
                     userIntent.putExtra("NAME", name);
                     userIntent.putExtra("NUMBER", number);
                     userIntent.putExtra("LOCATION", location);
+
                     startActivity(userIntent);
+//                    startActivity(new Intent(LoginActivity.this, OrderActivity.class));
                 }else if(response.body().getResponse().equals("failed")){
                     linearLayout.setAlpha(1f);
                     progressBar.setVisibility(View.GONE);

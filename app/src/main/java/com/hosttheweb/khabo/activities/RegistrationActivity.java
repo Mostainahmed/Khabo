@@ -1,4 +1,4 @@
-package com.hosttheweb.khabo;
+package com.hosttheweb.khabo.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -13,6 +13,12 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.hosttheweb.khabo.api.ApiClient;
+import com.hosttheweb.khabo.api.ApiInterface;
+import com.hosttheweb.khabo.R;
+import com.hosttheweb.khabo.model.User;
+import com.hosttheweb.khabo.others.MyBounceInterPolator;
 
 import retrofit2.Call;
 import retrofit2.Callback;

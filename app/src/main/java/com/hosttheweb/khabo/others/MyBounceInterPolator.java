@@ -1,4 +1,4 @@
-package com.hosttheweb.khabo;
+package com.hosttheweb.khabo.others;
 
 public class MyBounceInterPolator implements android.view.animation.Interpolator{
 

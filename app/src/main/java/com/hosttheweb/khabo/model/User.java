@@ -1,4 +1,4 @@
-package com.hosttheweb.khabo;
+package com.hosttheweb.khabo.model;
 
 import com.google.gson.annotations.SerializedName;
 

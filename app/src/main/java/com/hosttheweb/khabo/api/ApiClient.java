@@ -1,4 +1,4 @@
-package com.hosttheweb.khabo;
+package com.hosttheweb.khabo.api;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
