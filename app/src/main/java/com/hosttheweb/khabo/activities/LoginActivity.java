@@ -91,9 +91,9 @@ public class LoginActivity extends AppCompatActivity {
 
                     Intent userIntent = new Intent(LoginActivity.this, OrderActivity.class);
 //
-                    userIntent.putExtra("NAME", name);
-                    userIntent.putExtra("NUMBER", number);
-                    userIntent.putExtra("LOCATION", location);
+//                    userIntent.putExtra("NAME", name);
+//                    userIntent.putExtra("NUMBER", number);
+//                    userIntent.putExtra("LOCATION", location);
 
                     startActivity(userIntent);
 //                    startActivity(new Intent(LoginActivity.this, OrderActivity.class));

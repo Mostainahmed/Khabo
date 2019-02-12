@@ -14,5 +14,18 @@
         <item>Hall</item>
         <item>Mes</item>
     </array>
+    <string name="title_activity_dash_board">DashBoardActivity</string>
+    <string name="title_menu">Menu</string>
+    <string name="title_account">Account</string>
+    <string name="title_order_status">Order Status</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_menu_fragment">Hello menu fragment</string>
+    <string name="title_help">Help</string>
+    <string name="title_contact_us">Contact Us</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_address">Upper Jessore Road, KuliBagan, Daulatpur(Beside the Daulatpur Club)</string>
 
 </resources>

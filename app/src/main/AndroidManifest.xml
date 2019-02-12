@@ -17,10 +17,13 @@
         android:roundIcon="@mipmap/ic_launcher_khabo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.UserDetailsActivity"></activity>
-        <activity android:name=".activities.OrderActivity"></activity>
-        <activity android:name=".activities.LoginActivity"></activity>
-        <activity android:name=".activities.RegistrationActivity"></activity>
+        <activity
+            android:name=".activities.DashBoardActivity"
+            android:label="@string/title_activity_dash_board"></activity>
+        <activity android:name=".activities.UserDetailsActivity" />
+        <activity android:name=".activities.OrderActivity" />
+        <activity android:name=".activities.LoginActivity" />
+        <activity android:name=".activities.RegistrationActivity" />
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

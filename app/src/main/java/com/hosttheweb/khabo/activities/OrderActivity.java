@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.hosttheweb.khabo.R;
 import com.hosttheweb.khabo.adapters.MenuAdapter;
@@ -53,24 +54,17 @@ public class OrderActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<Menu>>() {
             @Override
             public void onResponse(Call<List<Menu>> call, Response<List<Menu>> response) {
-                try {
-                    JSONArray menus = new JSONArray(response);
-                    for (int i = 0; i < menus.length(); i++) {
-                        JSONObject menuObject = menus.getJSONObject(i);
-                        int id = menuObject.getInt("id");
-                        String menuitem = menuObject.getString("menuitem");
-                        String image = menuObject.getString("image");
-                        Menu menulist = new Menu(id, menuitem, image);
-                        Log.d("Problem",image);
-                        menuList.add(menulist);
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                menuList = response.body();
+                int size = response.body().size();
+                for (int i = 0; i < size; i++) {
+                    int id = menuList.get(i).getId();
+                    String menuname = menuList.get(i).getMenuName();
+                    String menuimage = menuList.get(i).getMenuImage();
+                    Menu menulist = new Menu(id,menuname,menuimage);
+                    menuList.add(menulist);
                 }
                 menuAdapter = new MenuAdapter(OrderActivity.this, menuList);
                 recyclerView.setAdapter(menuAdapter);
-
             }
 
             @Override
